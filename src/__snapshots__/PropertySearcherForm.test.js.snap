@@ -12,26 +12,30 @@ exports[`renders correctly (matches snapshot) 1`] = `
         <tr>
           <td>
             <label
-              htmlFor="loan_size"
+              htmlFor="loanSize"
             >
               Loan Size
             </label>
           </td>
           <td>
             <input
-              name="loan_size"
+              id="loanSize"
+              name="loanSize"
+              onChange={[Function]}
             />
           </td>
           <td>
             <label
-              htmlFor="property_type"
+              htmlFor="propertyType"
             >
               Property Type
             </label>
           </td>
           <td>
             <select
-              name="property_type"
+              id="propertyType"
+              name="propertyType"
+              onChange={[Function]}
             >
               <option
                 value="SingleFamily"
@@ -59,14 +63,16 @@ exports[`renders correctly (matches snapshot) 1`] = `
         <tr>
           <td>
             <label
-              htmlFor="credit_score"
+              htmlFor="creditScore"
             >
               Credit Score
             </label>
           </td>
           <td>
             <input
-              name="credit_score"
+              id="creditScore"
+              name="creditScore"
+              onChange={[Function]}
             />
           </td>
           <td>
@@ -78,7 +84,9 @@ exports[`renders correctly (matches snapshot) 1`] = `
           </td>
           <td>
             <select
+              id="occupancy"
               name="occupancy"
+              onChange={[Function]}
             >
               <option
                 value="Primary"
