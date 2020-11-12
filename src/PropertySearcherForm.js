@@ -46,9 +46,9 @@ const PropertySearcherForm = (props) => {
                 <tbody>
                 <tr>
                     <td><label htmlFor="loanSize">Loan Size</label></td>
-                    <td><input id="loanSize" name="loanSize" onChange = {onChangeHandler}></input></td>
+                    <td><input id="loanSize" name="loanSize" onChange = {onChangeHandler} value={formData.loanSize}></input></td>
                     <td><label htmlFor="propertyType">Property Type</label></td>
-                    <td><select id="propertyType" name="propertyType" onChange = {onChangeHandler}>
+                    <td><select id="propertyType" name="propertyType" onChange = {onChangeHandler} value={formData.propertyType}>
                         <option value="SingleFamily">Single Family</option>
                         <option value="MultiFamily">Multi-Family</option>
                         <option value="Condo">Condo</option>
@@ -57,9 +57,9 @@ const PropertySearcherForm = (props) => {
                 </tr>
                 <tr>
                     <td><label htmlFor="creditScore">Credit Score</label></td>
-                    <td><input id="creditScore" name="creditScore" onChange = {onChangeHandler}></input></td>
+                    <td><input id="creditScore" name="creditScore" onChange = {onChangeHandler} value={formData.creditScore}></input></td>
                     <td><label htmlFor="occupancy">Occupancy</label></td>
-                    <td><select id="occupancy" name="occupancy" onChange = {onChangeHandler}>
+                    <td><select id="occupancy" name="occupancy" onChange = {onChangeHandler} value={formData.occupancy}>
                         <option value="Primary">Primary</option>
                         <option value="Secondary">Secondary</option>
                         <option value="Investment">Investment</option>
