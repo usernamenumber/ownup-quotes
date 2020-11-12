@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import config from './config.js';
+import './PropertySearcherForm.css';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import redux_actions from './redux/actions';

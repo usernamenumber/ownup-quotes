@@ -1,4 +1,3 @@
-import './PropertySearcher.css';
 import PropertySearcherForm from './PropertySearcherForm.js';
 import { Provider } from 'react-redux'
 import store from './redux/store'
