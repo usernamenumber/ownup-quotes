@@ -1,6 +1,8 @@
 import Axios from 'axios';
-import { useState } from 'react';
 import config from './config.js';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import redux_actions from './redux/actions';
 
 const PropertySearcherForm = (props) => {
     const [formData, setFormData] = useState({
@@ -24,14 +26,16 @@ const PropertySearcherForm = (props) => {
             },
             params: formData,
         };
+        console.log('Fetching quotes...');
         Axios.get(api_url, payload)
-        .catch((error) => {
-            console.log(error);
-        })
         .then((response) => {
+            console.log('Loading quotes into store');
             console.log(response);
+            props.updateQuotes(response.data.rateQuotes);
         })
-        console.log(`Submission handler ran with ${payload}`);
+        .catch((error) => {
+            console.error(error);
+        })
     }
 
     return (
@@ -69,5 +73,8 @@ const PropertySearcherForm = (props) => {
       </div>
     );
   }
-  
-  export default PropertySearcherForm;
+
+  export default connect(
+      null,
+      redux_actions,
+  )(PropertySearcherForm);

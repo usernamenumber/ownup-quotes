@@ -1,22 +1,45 @@
 import Axios from 'axios';
-import React from 'react';
+import config from './config.js';
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import renderer from 'react-test-renderer';
 import PropertySearcherForm from './PropertySearcherForm.js';
-import config from './config.js';
+import React from 'react';
+import redux_actions from './redux/actions';
+import configureStore from 'redux-mock-store'
+import { Provider } from 'react-redux';
+import renderer from 'react-test-renderer';
 
 jest.mock('axios');
 Enzyme.configure({adapter: new Adapter() });
+const mockStore = configureStore([]);
+
+
+let store;
+const setupComponent = () => {
+  store = mockStore({});
+  //store = jest.fn();
+  return (
+    <Provider store={store}>
+      <PropertySearcherForm />
+    </Provider>
+  )
+}
 
 it('renders correctly (matches snapshot)', () => {
   const tree = renderer
-    .create(<PropertySearcherForm/>)
+    .create(setupComponent())
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 describe('PropertySearcherForm API interactions', () => {
+
+  const formData = {
+    loanSize: "100000",
+    propertyType: "Townhouse",
+    creditScore: "600",
+    occupancy: "Investment",
+  }
 
   const ownUpReturnData = {
     "rateQuotes": [
@@ -33,31 +56,30 @@ describe('PropertySearcherForm API interactions', () => {
 
   let wrapper;
   beforeEach(() => {
-    wrapper = Enzyme.mount(Enzyme.mount(<PropertySearcherForm />).get(0))
-    Axios.get.mockResolvedValue(ownUpReturnData);
-  });
+    // This needs to be a full render, not shallow, for enzyme to work
+    // https://github.com/enzymejs/enzyme/issues/2196
+    wrapper = Enzyme.mount(setupComponent());
+    Axios.get.mockResolvedValue({
+      data: ownUpReturnData
+    });
 
-  afterEach(() => {
-      jest.clearAllMocks();
-  });
-
-  it('submits the expected API query', () => {
+    // submit the form with values from formData
     const form = wrapper.find('form').first();
-    const fields = {
-      loanSize: "100000",
-      propertyType: "Townhouse",
-      creditScore: "600",
-      occupancy: "Investment",
-    }
-
-    for ( let fieldName in fields ) {
-      const val = fields[fieldName];
+    for ( let fieldName in formData ) {
+      const val = formData[fieldName];
       const field = form.find('#' + fieldName).first();
       field.instance().value = val;
       field.simulate('change');
     }
     form.simulate('submit');
+  });
 
+  afterEach(() => {
+      jest.clearAllMocks();
+      store.clearActions();
+  });
+
+  it('submits the expected API query', () => {
     const {api_key, api_url} = config.ownup;
     expect(Axios.get).toHaveBeenCalledWith(
       api_url,
@@ -65,23 +87,23 @@ describe('PropertySearcherForm API interactions', () => {
         headers: {
           authorization: `OU-AUTH ${api_key}`,
         },
-        params: fields,
+        params: formData,
       },
     );
   });
 
-  // it('stores the API response in state', () => {
-  //   Axios.get.returnValue(Promise.resolve({
-  //     "rateQuotes": [
-  //       {
-  //         "lenderName": "TFB Federal Credit Union",
-  //         "loanType": "7/1 ARM",
-  //         "interestRate": 3.5,
-  //         "closingCosts": 2000,
-  //         "monthlyPayment": 449.0446878088235,
-  //         "apr": 3.660036729314016
-  //       },
-  //     ]
-  //   }));
-  // });
+  it('stores the API response in state', () => {
+    const expected_action = redux_actions.updateQuotes(ownUpReturnData.rateQuotes) ;
+    // Just to protect against something going wrong
+    // with the action factory - should probably go
+    // in a separate test file for redux
+    expect(expected_action).toHaveProperty('type');
+    expect(expected_action).toHaveProperty('payload');
+    expect(expected_action.payload).toHaveLength(ownUpReturnData.rateQuotes.length);
+
+    const actions = store.getActions();
+    expect(actions).toEqual([ 
+      expected_action
+    ])
+  });
 });
