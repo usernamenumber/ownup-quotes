@@ -1,0 +1,39 @@
+.PropertySearcherResultsList {
+    width: 700px;
+    margin-left: 50px;
+    margin-top: 30px;
+    font-size: 80%;
+}
+.PropertySearcherResultsList table {
+    text-align: left;
+    border: thin solid lightgrey;
+}
+.PropertySearcherResultsList th {
+    text-align: left;
+    color: lightgrey;
+    padding: 1em;
+}
+.PropertySearcherResultsList td {
+    width: 200px;
+    padding: 1em;
+    border-top: thin solid lightgrey;
+}
+
+.PropertySearcherResultsList td.lenderName {
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PropertySearcherResultsList td.interestRate::after {
+    content: '%';
+}
+.PropertySearcherResultsList td.apr::after {
+    content: '%';
+}
+.PropertySearcherResultsList td.closingCosts::before {
+    content: '$';
+}
+.PropertySearcherResultsList td.monthlyPayment::before {
+    content: '$';
+}

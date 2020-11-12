@@ -22,6 +22,9 @@
 .PropertySearcherForm input {
     width: 200px;
 }
+.PropertySearcherForm input[name='loanSize']::before {
+    content: '$';
+}
 .PropertySearcherForm select {
     width: 200px;
 }

@@ -1,4 +1,6 @@
+import './PropertySearcherResultsList.css';
 import { connect } from 'react-redux'
+import utils from './utils';
 
 const PropertySearcherResultsList = (props) => {
     console.log("results rendering");
@@ -8,18 +10,18 @@ const PropertySearcherResultsList = (props) => {
         const key = `${lenderName}::${loanType}`;
         return (
             <tr key={key}>
-                <td>{lenderName}</td>
-                <td>{loanType}</td>
-                <td>{interestRate}</td>
-                <td>{closingCosts}</td>
-                <td>{monthlyPayment}</td>
-                <td>{apr}</td>
+                <td className='lenderName'>{lenderName}</td>
+                <td className='loanType'>{loanType}</td>
+                <td className='interestRate'>{Number.parseFloat(interestRate).toFixed(3)}</td>
+                <td className='closingCosts'>{Number.parseFloat(closingCosts).toFixed(0)}</td>
+                <td className='monthlyPayment'>{Number.parseFloat(monthlyPayment).toFixed(2)}</td>
+                <td className='apr'>{Number.parseFloat(apr).toFixed(3)}</td>
             </tr>
         );
     }); 
     return (
         <div className="PropertySearcherResultsList">
-            <table>
+            <table cellspacing="0">
                 <thead>
                     <tr>
                         <th>Lender</th>
