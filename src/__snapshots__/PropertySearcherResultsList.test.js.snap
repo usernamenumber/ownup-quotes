@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly (matches snapshot) 1`] = `
+<div
+  className="PropertySearcherResultsList"
+>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Lender
+        </th>
+        <th>
+          Product
+        </th>
+        <th>
+          Rate
+        </th>
+        <th>
+          Closing Costs
+        </th>
+        <th>
+          Monthly Payment
+        </th>
+        <th>
+          APR
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          TFB Federal Credit Union
+        </td>
+        <td>
+          7/1 ARM
+        </td>
+        <td>
+          3.5
+        </td>
+        <td>
+          2000
+        </td>
+        <td>
+          449.0446878088235
+        </td>
+        <td>
+          3.660036729314016
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
