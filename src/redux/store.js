@@ -1,7 +1,11 @@
 import { createStore } from 'redux'
 
-const store = createStore(
-    (state = {quotes: []}, action) => {
+export const initial_store_data = {
+    quotes: [],
+}
+
+export const store = createStore(
+    (state = initial_store_data, action) => {
         switch(action.type) {
             case 'PropertySearcher/updateQuotes':
                 return {...state, quotes: action.payload};
@@ -13,6 +17,6 @@ const store = createStore(
         }
     } ,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-)
+); 
 
 export default store;

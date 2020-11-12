@@ -5,6 +5,7 @@ import Adapter from "enzyme-adapter-react-16";
 import PropertySearcherForm from './PropertySearcherForm.js';
 import React from 'react';
 import redux_actions from './redux/actions';
+import initial_store_data from './redux/store';
 import configureStore from 'redux-mock-store'
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -16,8 +17,7 @@ const mockStore = configureStore([]);
 
 let store;
 const setupComponent = () => {
-  store = mockStore({});
-  //store = jest.fn();
+  store = mockStore(initial_store_data);
   return (
     <Provider store={store}>
       <PropertySearcherForm />
