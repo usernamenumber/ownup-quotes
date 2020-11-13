@@ -1,10 +1,7 @@
 import './PropertySearcherResultsList.css';
 import { connect } from 'react-redux'
-import utils from './utils';
 
 const PropertySearcherResultsList = (props) => {
-    console.log("results rendering");
-    console.log(props);
     const output_rows = props.quotes.map( (quotedata) => {
         const {lenderName, loanType, interestRate, closingCosts, monthlyPayment, apr} = quotedata;
         const key = `${lenderName}::${loanType}`;
@@ -19,30 +16,46 @@ const PropertySearcherResultsList = (props) => {
             </tr>
         );
     }); 
+    const loadingNotification = () => {
+        console.log(`checking for loader ${props.quotes_updating}`);
+        if ( props.quotes_updating ) {
+            return  <div className='loader'>Loading...</div>
+        } else {
+            return '';
+        }
+    }
+    const resultsTable = () => {
+        if ( props.quotes.length > 0 ) {
+            return (
+                <table cellSpacing="0">
+                    <thead>
+                        <tr>
+                            <th>Lender</th>
+                            <th>Product</th>
+                            <th>Rate</th>
+                            <th>Closing Costs</th>
+                            <th>Monthly Payment</th>
+                            <th>APR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {output_rows}
+                    </tbody>
+                </table>
+            )
+        } else {
+            return '';
+        }
+    }
     return (
         <div className="PropertySearcherResultsList">
-            <table cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Lender</th>
-                        <th>Product</th>
-                        <th>Rate</th>
-                        <th>Closing Costs</th>
-                        <th>Monthly Payment</th>
-                        <th>APR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {output_rows}
-                </tbody>
-            </table>
+            {loadingNotification()}
+            {resultsTable()}
         </div>
     )
 }
 
 export default connect(
-    (state) => ({
-        quotes: state.quotes,
-    }),
+    (state) => state,
     null
 )(PropertySearcherResultsList);

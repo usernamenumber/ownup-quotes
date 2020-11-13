@@ -4,7 +4,7 @@
 const config = {
     ownup: {
         api_key: process.env.REACT_APP_OWNUP_API_KEY,
-        api_url: "https://ss6b2ke2ca.execute-api.us-east-1.amazonaws.com/Prod/quotes",
+        api_url: process.env.REACT_APP_OWNUP_API_URL,
     }
 }
 

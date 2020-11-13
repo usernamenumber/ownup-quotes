@@ -1,3 +1,7 @@
+.PropertySearcherForm .error {
+    color: red;
+    font-style: italic;
+}
 .PropertySearcherForm {
     width: 800px;
     margin-left: 80px;

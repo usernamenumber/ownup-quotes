@@ -4,6 +4,14 @@ const actions = {
         type: `${prefix}/updateQuotes`,
         payload: quotes,
     }),
+    quoteUpdateStart: () => ({
+        type: `${prefix}/quotesUpdateStart`,
+        payload: true,
+    }),
+    quoteUpdateFinish: () => ({
+        type: `${prefix}/quotesUpdateFinish`,
+        payload: false,
+    }) 
 }
 
 export default actions;

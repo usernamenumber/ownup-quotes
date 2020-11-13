@@ -4,7 +4,10 @@ exports[`renders correctly (matches snapshot) 1`] = `
 <div
   className="PropertySearcherResultsList"
 >
-  <table>
+  
+  <table
+    cellSpacing="0"
+  >
     <thead>
       <tr>
         <th>
@@ -29,23 +32,67 @@ exports[`renders correctly (matches snapshot) 1`] = `
     </thead>
     <tbody>
       <tr>
-        <td>
+        <td
+          className="lenderName"
+        >
           TFB Federal Credit Union
         </td>
-        <td>
+        <td
+          className="loanType"
+        >
           7/1 ARM
         </td>
-        <td>
-          3.5
+        <td
+          className="interestRate"
+        >
+          3.500
         </td>
-        <td>
+        <td
+          className="closingCosts"
+        >
           2000
         </td>
-        <td>
-          449.0446878088235
+        <td
+          className="monthlyPayment"
+        >
+          449.04
         </td>
-        <td>
-          3.660036729314016
+        <td
+          className="apr"
+        >
+          3.660
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="lenderName"
+        >
+          Bates College Credit Union
+        </td>
+        <td
+          className="loanType"
+        >
+          10/1 ARM
+        </td>
+        <td
+          className="interestRate"
+        >
+          3.125
+        </td>
+        <td
+          className="closingCosts"
+        >
+          2570
+        </td>
+        <td
+          className="monthlyPayment"
+        >
+          4420.96
+        </td>
+        <td
+          className="apr"
+        >
+          3.397
         </td>
       </tr>
     </tbody>

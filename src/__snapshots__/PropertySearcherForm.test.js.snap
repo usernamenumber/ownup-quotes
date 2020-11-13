@@ -22,6 +22,7 @@ exports[`renders correctly (matches snapshot) 1`] = `
               id="loanSize"
               name="loanSize"
               onChange={[Function]}
+              value=""
             />
           </td>
           <td>
@@ -36,6 +37,7 @@ exports[`renders correctly (matches snapshot) 1`] = `
               id="propertyType"
               name="propertyType"
               onChange={[Function]}
+              value="SingleFamily"
             >
               <option
                 value="SingleFamily"
@@ -73,6 +75,7 @@ exports[`renders correctly (matches snapshot) 1`] = `
               id="creditScore"
               name="creditScore"
               onChange={[Function]}
+              value=""
             />
           </td>
           <td>
@@ -87,6 +90,7 @@ exports[`renders correctly (matches snapshot) 1`] = `
               id="occupancy"
               name="occupancy"
               onChange={[Function]}
+              value="Primary"
             >
               <option
                 value="Primary"

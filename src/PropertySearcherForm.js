@@ -7,19 +7,61 @@ import redux_actions from './redux/actions';
 
 const PropertySearcherForm = (props) => {
     const [formData, setFormData] = useState({
-        loanSize:     null,
+        loanSize:     '',
         propertyType: 'SingleFamily',
-        creditScore:  null,
+        creditScore:  '',
         occupancy:    'Primary'
     });
+
+    const [errors, setErrors] = useState({});
     
+    const validateField = (name, value) => {
+        console.log(`checking ${name} '${value}'`);
+        let errmsg;
+        switch (name) {
+            case 'loanSize':
+                if (value === '' || isNaN(value)) {
+                    errmsg = 'Loan size must be a number';
+                } 
+                break;
+            case 'creditScore':
+                if (value === '' || (isNaN(value) || value < 300 || value > 800)) {
+                    errmsg = 'Credit score must be a number between 300 and 800';
+                } 
+                break;
+            default:
+                break;
+        }
+        setErrors({...errors, name: errmsg});
+        console.log(`returning '${errmsg}`);
+        return errmsg;
+    }
+
     const onChangeHandler = (event) => {
         const {name, value} = event.target;
+        validateField(name, value);
         setFormData({...formData, [name]: value});
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
+        
+        // TODO: this is reeeally hacky, but the setError()s
+        // run in validateField() aren't triggering an update
+        // of the errors list in this context (works in onChange)
+        let _errors = {};
+        for (let field in formData) {
+            const value = formData[field];
+            const msg = validateField(field, value);
+            if (typeof(msg) !== 'undefined') {
+                _errors[field] = msg;
+            }
+        }
+        if (Object.keys(_errors).length > 0) {
+            setErrors({...errors, ..._errors})
+            return;
+        }
+
         const {api_url, api_key} = config.ownup;
         const payload = {
             headers: {
@@ -28,6 +70,7 @@ const PropertySearcherForm = (props) => {
             params: formData,
         };
         console.log('Fetching quotes...');
+        props.quoteUpdateStart();
         Axios.get(api_url, payload)
         .then((response) => {
             console.log('Loading quotes into store');
@@ -35,9 +78,17 @@ const PropertySearcherForm = (props) => {
             props.updateQuotes(response.data.rateQuotes);
         })
         .catch((error) => {
+            setErrors(error);
             console.error(error);
         })
+        .then(() => {
+            props.quoteUpdateFinish();
+        })
     }
+
+    const errorList = () => Object.keys(errors).map( (field) => (
+        <div key={field} className='error'>{errors[field]}</div>
+    ));
 
     return (
       <div className="PropertySearcherForm">
@@ -71,6 +122,7 @@ const PropertySearcherForm = (props) => {
                 </tbody>
             </table>
         </form>
+        {errorList()}
       </div>
     );
   }

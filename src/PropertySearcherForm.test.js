@@ -93,17 +93,27 @@ describe('PropertySearcherForm API interactions', () => {
   });
 
   it('stores the API response in state', () => {
-    const expected_action = redux_actions.updateQuotes(ownUpReturnData.rateQuotes) ;
+    const start_action = redux_actions.quoteUpdateStart();
+
+    const update_action =  redux_actions.updateQuotes(
+      ownUpReturnData.rateQuotes
+    );
     // Just to protect against something going wrong
     // with the action factory - should probably go
     // in a separate test file for redux
-    expect(expected_action).toHaveProperty('type');
-    expect(expected_action).toHaveProperty('payload');
-    expect(expected_action.payload).toHaveLength(ownUpReturnData.rateQuotes.length);
+    expect(update_action).toHaveProperty('type');
+    expect(update_action).toHaveProperty('payload');
+    expect(update_action.payload).toHaveLength(ownUpReturnData.rateQuotes.length);
+
+    const finish_action = redux_actions.quoteUpdateFinish();
+    
+    const expected_actions = [
+      start_action,
+      update_action,
+      finish_action,
+    ]
 
     const actions = store.getActions();
-    expect(actions).toEqual([ 
-      expected_action
-    ])
+    expect(actions).toEqual(expected_actions);
   });
 });

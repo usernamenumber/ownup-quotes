@@ -1,3 +1,7 @@
+.PropertySearcherResultsList .loader {
+    color: green;
+    font-style: italic;
+}
 .PropertySearcherResultsList {
     width: 700px;
     margin-left: 50px;
