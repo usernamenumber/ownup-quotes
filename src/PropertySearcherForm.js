@@ -16,7 +16,6 @@ const PropertySearcherForm = (props) => {
     const [errors, setErrors] = useState({});
     
     const validateField = (name, value) => {
-        console.log(`checking ${name} '${value}'`);
         let errmsg;
         switch (name) {
             case 'loanSize':
@@ -33,7 +32,6 @@ const PropertySearcherForm = (props) => {
                 break;
         }
         setErrors({...errors, name: errmsg});
-        console.log(`returning '${errmsg}`);
         return errmsg;
     }
 
@@ -69,12 +67,9 @@ const PropertySearcherForm = (props) => {
             },
             params: formData,
         };
-        console.log('Fetching quotes...');
         props.quoteUpdateStart();
         Axios.get(api_url, payload)
         .then((response) => {
-            console.log('Loading quotes into store');
-            console.log(response);
             props.updateQuotes(response.data.rateQuotes);
         })
         .catch((error) => {

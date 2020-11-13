@@ -17,7 +17,6 @@ const PropertySearcherResultsList = (props) => {
         );
     }); 
     const loadingNotification = () => {
-        console.log(`checking for loader ${props.quotes_updating}`);
         if ( props.quotes_updating ) {
             return  <div className='loader'>Loading...</div>
         } else {

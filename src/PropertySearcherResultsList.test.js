@@ -31,8 +31,6 @@ let store;
 const mockStore = configureStore([]);
 const setupComponent = () => {
 store = mockStore({...initial_store_data, quotes});
-  console.log(`store.getstate = ${store.getState()}`);
-  console.log(store.getState());
   return (
     <Provider store={store}>
       <PropertySearcherResultsList />

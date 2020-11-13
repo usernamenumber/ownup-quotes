@@ -11,15 +11,12 @@ export const store = createStore(
             case `${prefix}/updateQuotes`:
                 return {...state, quotes: action.payload};
             case `${prefix}/quotesUpdateStart`:
-                console.log('setting quotes_updating true');
                 return {...state, quotes_updating: true};
             case `${prefix}/quotesUpdateFinish`:
-                console.log('setting quotes_updating false');
                 return {...state, quotes_updating: false};
 
             default: 
                 if ( ! action.type.startsWith('@')) {
-                    console.log(`prefix is ${prefix}`);
                     console.warn(`redux store got unrecognized action '${action.type}'`);
                 }
                 return state;
